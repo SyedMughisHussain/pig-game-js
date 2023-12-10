@@ -14,7 +14,7 @@ const hold_btn = document.querySelector(".btn--hold");
 
 let activePlayer, currentScore, scores;
 const init = function () {
-  scores = [0,0];
+  scores = [0, 0];
   activePlayer = 0;
   currentScore = 0;
 
@@ -50,11 +50,21 @@ const userRollsDice = function () {
   }
 };
 
-const hold = function() {
-    scores[activePlayer] += currentScore;
-    document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
+const hold = function () {
+  scores[activePlayer] += currentScore;
+  document.getElementById(`score--${activePlayer}`).textContent =
+    scores[activePlayer];
+  if (scores[activePlayer] >= 100) {
+    document
+      .querySelector(`.player--${activePlayer}`)
+      .classList.add("player--winner");
+    document
+      .querySelector(`.player--${activePlayer}`)
+      .classList.remove("player--active");
+  } else {
     switchPlayer();
-}
+  }
+};
 
 roll_dice_btn.addEventListener("click", userRollsDice);
 hold_btn.addEventListener("click", hold);
